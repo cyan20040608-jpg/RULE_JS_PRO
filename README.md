@@ -785,3 +785,37 @@ llm:
 ---
 
 以上为项目总体蓝图，详细开发任务与步骤请见 `DEV_PLAN.md`。
+
+---
+
+## 15. 数据库初始化（TASK002）
+
+### 15.1 初始化命令
+
+在项目根目录执行：
+
+```bash
+python scripts/init_db.py
+```
+
+脚本会完成以下动作：
+- 加载全部 SQLAlchemy ORM 模型并建表（`checkfirst=True`）
+- 校验 23 张核心/扩展表是否都已创建
+- 校验关键外键和索引是否存在
+- 执行简单查询（`SELECT 1` 与 `admin` 计数）确认连接与查询链路正常
+
+### 15.2 已落库表清单
+
+`admin`、`college`、`major`、`class`、`student`、`teacher`、`course`、`course_class`、`enroll`、`score`、`attendance`、`classroom`、`metric_def`、`metric_snapshot`、`alert_rule`、`alert_event`、`chat_history`、`workflow_log`、`sql_log`、`strategy_policy`、`query_template`、`audit_log`、`system_config`
+
+### 15.3 约束策略
+
+- 全表统一审计字段：`created_at`、`updated_at`、`created_by`、`updated_by`、`is_deleted`
+- 主要关联字段均配置外键约束（`onupdate=CASCADE`，`ondelete=RESTRICT/SET NULL`）
+- 编码类字段使用唯一约束（如 `college_code`、`major_code`、`student_no`、`teacher_no`、`course_code`）
+- 高频过滤字段使用复合索引（如状态、学期、组织维度）
+
+### 15.4 验收标准映射
+
+- “所有基础表可创建”：通过脚本中的表完整性校验
+- “能执行简单查询”：通过脚本中的 `SELECT 1` 与 `admin` 计数校验

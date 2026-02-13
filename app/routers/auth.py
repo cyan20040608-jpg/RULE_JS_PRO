@@ -13,7 +13,9 @@ def login(payload: LoginRequest, db: Session = Depends(get_db)):
     token = authenticate_admin(db, payload.username, payload.password)
     if not token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
-    return TokenResponse(access_token=token)
+    res = TokenResponse()
+    res.access_token = token
+    return res
 
 
 @router.post("/logout")
