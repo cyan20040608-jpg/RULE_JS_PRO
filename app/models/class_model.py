@@ -6,7 +6,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Class(Base, AuditMixin):
-    # "class" is a reserved keyword, so force quoted table name for MySQL.
+    # 该表名是关键字，这里强制使用带引号的表名。
     __tablename__ = quoted_name("class", True)
     __table_args__ = mysql_table_args(
         Index("idx_class_major_grade_deleted", "major_id", "grade_year", "is_deleted"),

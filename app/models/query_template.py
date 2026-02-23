@@ -1,3 +1,5 @@
+"""查询模板模型。"""
+
 from sqlalchemy import JSON, Column, Index, Integer, String, Text
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class QueryTemplate(Base, AuditMixin):
+    """可复用查询模板。"""
     __tablename__ = "query_template"
     __table_args__ = mysql_table_args(
         Index("idx_query_template_status_created", "status", "created_at"),

@@ -1,3 +1,5 @@
+"""工作流执行日志模型。"""
+
 from sqlalchemy import JSON, Column, Index, Integer, String, Text
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class WorkflowLog(Base, AuditMixin):
+    """多步骤执行过程日志。"""
     __tablename__ = "workflow_log"
     __table_args__ = mysql_table_args(
         Index("idx_workflow_log_session_step_created", "session_id", "step_name", "created_at"),

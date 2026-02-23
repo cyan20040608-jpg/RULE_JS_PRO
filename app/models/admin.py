@@ -1,3 +1,5 @@
+"""管理员表模型。"""
+
 from sqlalchemy import Column, DateTime, Index, Integer, String
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Admin(Base, AuditMixin):
+    """管理员信息。"""
     __tablename__ = "admin"
     __table_args__ = mysql_table_args(
         Index("idx_admin_status_deleted", "status", "is_deleted"),

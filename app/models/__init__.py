@@ -1,3 +1,5 @@
+"""模型导出入口。"""
+
 from app.models.admin import Admin
 from app.models.alert import AlertEvent, AlertRule
 from app.models.attendance import Attendance

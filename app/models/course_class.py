@@ -1,3 +1,5 @@
+"""开课教学班模型。"""
+
 from sqlalchemy import Column, ForeignKey, Index, Integer, String, Text
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class CourseClass(Base, AuditMixin):
+    """课程、班级与教师的开课关联。"""
     __tablename__ = "course_class"
     __table_args__ = mysql_table_args(
         Index("idx_course_class_term_course_class_deleted", "term", "course_id", "class_id", "is_deleted"),

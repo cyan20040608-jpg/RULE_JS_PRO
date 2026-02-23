@@ -1,3 +1,5 @@
+"""聊天历史模型。"""
+
 from sqlalchemy import Column, ForeignKey, Index, Integer, String, Text
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class ChatHistory(Base, AuditMixin):
+    """会话消息历史。"""
     __tablename__ = "chat_history"
     __table_args__ = mysql_table_args(
         Index("idx_chat_history_session_created", "session_id", "created_at"),

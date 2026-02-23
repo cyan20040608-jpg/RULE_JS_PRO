@@ -1,9 +1,11 @@
+"""模型复用字段与表参数工具。"""
+
 from sqlalchemy import Boolean, Column, DateTime, Integer, text
 from sqlalchemy.sql import func
 
 
 class AuditMixin:
-    """Shared audit fields for all business tables."""
+    """统一审计字段混入。"""
 
     created_at = Column(DateTime, nullable=False, server_default=func.now(), comment="创建时间")
     updated_at = Column(
@@ -25,8 +27,7 @@ class AuditMixin:
 
 
 def mysql_table_args(*args):
-    """Attach common MySQL table options while preserving index/constraint args."""
-
+    """合并索引与约束，并附加统一数据库表参数。"""
     return (
         *args,
         {

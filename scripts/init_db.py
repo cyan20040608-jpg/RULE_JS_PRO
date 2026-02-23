@@ -1,3 +1,5 @@
+"""数据库初始化脚本：建表、结构校验与简单查询校验。"""
+
 import os
 import sys
 
@@ -11,7 +13,7 @@ if ROOT_DIR not in sys.path:
 from app.db.base import Base
 from app.db.session import SessionLocal, engine
 
-# Import all models first so Base.metadata can see every mapped table.
+# 先导入全部模型，确保元数据能拿到所有表映射。
 import app.models  # noqa: F401
 
 
@@ -43,10 +45,12 @@ EXPECTED_TABLES = {
 
 
 def init_db() -> None:
+    """创建所有尚不存在的表。"""
     Base.metadata.create_all(bind=engine, checkfirst=True)
 
 
 def verify_tables(expected_tables: set[str]) -> None:
+    """校验目标表是否全部创建成功。"""
     inspector = inspect(engine)
     actual_tables = set(inspector.get_table_names())
     missing_tables = sorted(expected_tables - actual_tables)
@@ -57,6 +61,7 @@ def verify_tables(expected_tables: set[str]) -> None:
 
 
 def verify_schema_details() -> None:
+    """校验关键外键与索引是否存在。"""
     inspector = inspect(engine)
 
     major_fk_targets = {fk["referred_table"] for fk in inspector.get_foreign_keys("major")}
@@ -75,6 +80,7 @@ def verify_schema_details() -> None:
 
 
 def smoke_query() -> None:
+    """执行最小查询，验证连接和基础查询能力。"""
     with SessionLocal() as db:
         db.execute(text("SELECT 1"))
         db.execute(text("SELECT COUNT(*) FROM admin"))
@@ -82,6 +88,7 @@ def smoke_query() -> None:
 
 
 def main() -> None:
+    """脚本主入口。"""
     try:
         print("Initializing database schema...")
         init_db()

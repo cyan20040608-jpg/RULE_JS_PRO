@@ -1,3 +1,5 @@
+"""教室信息模型。"""
+
 from sqlalchemy import Column, Index, Integer, String, UniqueConstraint
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Classroom(Base, AuditMixin):
+    """教室资源信息。"""
     __tablename__ = "classroom"
     __table_args__ = mysql_table_args(
         UniqueConstraint("building", "room_no", name="uq_classroom_building_room"),

@@ -1,3 +1,5 @@
-﻿from app.routers import auth, admin
+"""路由模块导出入口。"""
 
-__all__ = ["auth", "admin"]
+from app.routers import admin, auth, crud
+
+__all__ = ["auth", "admin", "crud"]

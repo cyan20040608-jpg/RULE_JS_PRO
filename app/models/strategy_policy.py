@@ -1,3 +1,5 @@
+"""策略配置模型。"""
+
 from sqlalchemy import JSON, Column, Index, Integer, String, Text
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class StrategyPolicy(Base, AuditMixin):
+    """策略规则配置。"""
     __tablename__ = "strategy_policy"
     __table_args__ = mysql_table_args(
         Index("idx_strategy_policy_type_status_deleted", "policy_type", "status", "is_deleted"),

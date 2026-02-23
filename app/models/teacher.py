@@ -1,3 +1,5 @@
+"""教师模型。"""
+
 from sqlalchemy import Column, ForeignKey, Index, Integer, String, Date
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Teacher(Base, AuditMixin):
+    """教师基础信息。"""
     __tablename__ = "teacher"
     __table_args__ = mysql_table_args(
         Index("idx_teacher_college_status_deleted", "college_id", "status", "is_deleted"),

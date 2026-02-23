@@ -1,4 +1,6 @@
-﻿import argparse
+"""初始化管理员账号的脚本。"""
+
+import argparse
 import getpass
 import os
 import sys
@@ -14,6 +16,7 @@ from app.models.admin import Admin
 
 
 def ensure_tables() -> None:
+    """确保数据库表已创建。"""
     Base.metadata.create_all(bind=engine)
 
 
@@ -24,6 +27,7 @@ def create_admin(
     phone: str | None,
     email: str | None,
 ) -> bool:
+    """创建管理员账号；若账号已存在则返回失败。"""
     db = SessionLocal()
     try:
         exists = (
@@ -52,6 +56,7 @@ def create_admin(
 
 
 def main() -> None:
+    """解析命令行参数并执行管理员初始化。"""
     parser = argparse.ArgumentParser(description="Initialize admin user")
     parser.add_argument("--username", required=True, help="admin username")
     parser.add_argument("--password", required=False, help="admin password")

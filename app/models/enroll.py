@@ -1,3 +1,5 @@
+"""选课记录模型。"""
+
 from sqlalchemy import Column, DateTime, ForeignKey, Index, Integer, String, UniqueConstraint
 from sqlalchemy.sql import func
 
@@ -6,6 +8,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Enroll(Base, AuditMixin):
+    """学生选课关系。"""
     __tablename__ = "enroll"
     __table_args__ = mysql_table_args(
         UniqueConstraint("student_id", "course_class_id", name="uq_enroll_student_course_class"),

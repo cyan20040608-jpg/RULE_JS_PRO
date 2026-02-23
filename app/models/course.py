@@ -1,3 +1,5 @@
+"""课程模型。"""
+
 from sqlalchemy import Column, ForeignKey, Index, Integer, Numeric, String, Text
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Course(Base, AuditMixin):
+    """课程基础信息。"""
     __tablename__ = "course"
     __table_args__ = mysql_table_args(
         Index("idx_course_college_type_deleted", "college_id", "course_type", "is_deleted"),

@@ -1,3 +1,5 @@
+"""预警规则与事件模型。"""
+
 from sqlalchemy import Column, DateTime, ForeignKey, Index, Integer, String, Text
 from sqlalchemy.sql import func
 
@@ -6,6 +8,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class AlertRule(Base, AuditMixin):
+    """预警规则。"""
     __tablename__ = "alert_rule"
     __table_args__ = mysql_table_args(
         Index("idx_alert_rule_metric_status_deleted", "metric_id", "status", "is_deleted"),
@@ -27,6 +30,7 @@ class AlertRule(Base, AuditMixin):
 
 
 class AlertEvent(Base, AuditMixin):
+    """预警事件。"""
     __tablename__ = "alert_event"
     __table_args__ = mysql_table_args(
         Index("idx_alert_event_time_level_status_deleted", "event_time", "level", "status", "is_deleted"),

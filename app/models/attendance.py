@@ -1,3 +1,5 @@
+"""考勤记录模型。"""
+
 from sqlalchemy import Column, Date, ForeignKey, Index, Integer, String, UniqueConstraint
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Attendance(Base, AuditMixin):
+    """学生考勤记录。"""
     __tablename__ = "attendance"
     __table_args__ = mysql_table_args(
         UniqueConstraint(

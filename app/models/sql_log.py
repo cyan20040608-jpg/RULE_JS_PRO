@@ -1,3 +1,5 @@
+"""数据语句执行日志模型。"""
+
 from sqlalchemy import JSON, Column, Index, Integer, String, Text
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class SQLLog(Base, AuditMixin):
+    """查询与变更语句执行日志。"""
     __tablename__ = "sql_log"
     __table_args__ = mysql_table_args(
         Index("idx_sql_log_session_created", "session_id", "created_at"),

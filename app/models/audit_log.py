@@ -1,3 +1,5 @@
+"""操作审计日志模型。"""
+
 from sqlalchemy import JSON, Column, ForeignKey, Index, Integer, String
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class AuditLog(Base, AuditMixin):
+    """管理员操作审计日志。"""
     __tablename__ = "audit_log"
     __table_args__ = mysql_table_args(
         Index("idx_audit_log_admin_action_created", "admin_id", "action_type", "created_at"),

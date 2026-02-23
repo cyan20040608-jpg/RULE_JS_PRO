@@ -1,3 +1,5 @@
+"""指标定义与指标快照模型。"""
+
 from sqlalchemy import JSON, Column, ForeignKey, Index, Integer, Numeric, String, Text, DateTime
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class MetricDef(Base, AuditMixin):
+    """指标定义。"""
     __tablename__ = "metric_def"
     __table_args__ = mysql_table_args(
         Index("idx_metric_def_category_deleted", "metric_category", "is_deleted"),
@@ -20,6 +23,7 @@ class MetricDef(Base, AuditMixin):
 
 
 class MetricSnapshot(Base, AuditMixin):
+    """指标快照数据。"""
     __tablename__ = "metric_snapshot"
     __table_args__ = mysql_table_args(
         Index("idx_metric_snapshot_metric_time_deleted", "metric_id", "stat_time", "is_deleted"),

@@ -1,3 +1,5 @@
+"""成绩记录模型。"""
+
 from sqlalchemy import Column, ForeignKey, Index, Integer, Numeric, String, UniqueConstraint
 
 from app.db.base import Base
@@ -5,6 +7,7 @@ from app.models.base_mixins import AuditMixin, mysql_table_args
 
 
 class Score(Base, AuditMixin):
+    """学生课程成绩。"""
     __tablename__ = "score"
     __table_args__ = mysql_table_args(
         UniqueConstraint("student_id", "course_class_id", "term", name="uq_score_student_class_term"),
